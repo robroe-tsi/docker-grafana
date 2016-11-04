@@ -16,8 +16,11 @@ RUN apt-get update && \
 
 VOLUME ["/var/lib/grafana", "/var/lib/grafana/plugins", "/var/log/grafana", "/etc/grafana"]
 
+#Add shell script with startup commands
+ADD docker_files/grafana-run.sh /apps/grafana-run.sh
+ADD docker_files/debug-run.sh /apps/debug-run.sh
+RUN chmod a+x /apps/*.sh
+
 EXPOSE 3000
 
-COPY ./run.sh /run.sh
-
-ENTRYPOINT ["/run.sh"]
+CMD ["/bin/bash"]
